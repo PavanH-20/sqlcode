@@ -1,0 +1,91 @@
+
+mysql> desc details;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(20) | NO   |     | NULL    |       |
+| age   | int         | NO   |     | NULL    |       |
+| city  | varchar(20) | NO   |     | NULL    |       |
+| state | varchar(25) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.68 sec)
+
+mysql> create temporary table p1
+    -> ^C
+mysql>
+mysql> insert into details values('pavan','21','blore','KA');
+Query OK, 1 row affected (1.36 sec)
+
+mysql> insert into details values('loki','21','blore','KA');
+Query OK, 1 row affected (2.27 sec)
+
+mysql> insert into details values('shiva','22','blore','KA');
+Query OK, 1 row affected (0.90 sec)
+
+mysql> select * from details;
++-------+-----+-------+-------+
+| name  | age | city  | state |
++-------+-----+-------+-------+
+| pavan |  21 | blore | KA    |
+| loki  |  21 | blore | KA    |
+| shiva |  22 | blore | KA    |
++-------+-----+-------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create temporary table p1
+    -> select distinct age from details;
+Query OK, 2 rows affected (1.89 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from p1;
++-----+
+| age |
++-----+
+|  21 |
+|  22 |
++-----+
+2 rows in set (0.00 sec)
+
+mysql> create temporary table p2
+    -> select distinct name, age from details;
+Query OK, 3 rows affected (0.65 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from p2;
++-------+-----+
+| name  | age |
++-------+-----+
+| pavan |  21 |
+| loki  |  21 |
+| shiva |  22 |
++-------+-----+
+3 rows in set (0.00 sec)
+
+mysql> select * from p1;
++-----+
+| age |
++-----+
+|  21 |
+|  22 |
++-----+
+2 rows in set (0.00 sec)
+
+mysql> drop temporary table if exists p1;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> select * from p1;
+ERROR 1146 (42S02): Table 'sqlbatch.p1' doesn't exist
+mysql> truncate p2;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from p2;
+Empty set (0.00 sec)
+
+mysql> desc p2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(20) | NO   |     | NULL    | NULL  |
+| age   | int         | NO   |     | NULL    | NULL  |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.07 sec)
