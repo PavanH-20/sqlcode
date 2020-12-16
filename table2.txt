@@ -75,3 +75,65 @@ mysql> select * from persons;
 |       31 | Sharanappa | Gowda    | JP nagar 6th phase | delhi | KA    |
 +----------+------------+----------+--------------------+-------+-------+
 2 rows in set (0.07 sec)
+
+mysql> create table if not exists checkperson(
+    -> checkid int not null,
+    -> PersonID int,
+    -> adhaar int not null,
+    -> primary key(checkid),
+    -> foreign key(PersonID)  references persons(PersonID)
+    -> ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected (2.24 sec)
+
+mysql> desc checkperson;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| checkid  | int  | NO   | PRI | NULL    |       |
+| PersonID | int  | YES  | MUL | NULL    |       |
+| adhaar   | int  | NO   |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> select * from persons;
++----------+------------+----------+--------------------+-------+-------+
+| PersonID | FirstName  | LastName | Address            | City  | State |
++----------+------------+----------+--------------------+-------+-------+
+|       15 | Shiva      | anand    | JP nagar 6th phase | blore | KA    |
+|       31 | Sharanappa | Gowda    | JP nagar 6th phase | delhi | KA    |
++----------+------------+----------+--------------------+-------+-------+
+2 rows in set (0.09 sec)
+
+mysql> insert into checkperson values(12,15,41256325), (11,31,52146325);
+Query OK, 2 rows affected (0.17 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from checkperson;
++---------+----------+----------+
+| checkid | PersonID | adhaar   |
++---------+----------+----------+
+|      11 |       31 | 52146325 |
+|      12 |       15 | 41256325 |
++---------+----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> delete from persons
+    -> where PersonID=31;
+Query OK, 1 row affected (0.16 sec)
+
+mysql> select * from persons;
++----------+-----------+----------+--------------------+-------+-------+
+| PersonID | FirstName | LastName | Address            | City  | State |
++----------+-----------+----------+--------------------+-------+-------+
+|       15 | Shiva     | anand    | JP nagar 6th phase | blore | KA    |
++----------+-----------+----------+--------------------+-------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from checkperson;
++---------+----------+----------+
+| checkid | PersonID | adhaar   |
++---------+----------+----------+
+|      12 |       15 | 41256325 |
++---------+----------+----------+
+1 row in set (0.00 sec)
