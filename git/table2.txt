@@ -1,0 +1,77 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| empl               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sqlbatch           |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use sqlbatch;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_sqlbatch |
++--------------------+
+| checklist          |
+| contact            |
+| details            |
+| motor_bikes        |
+| persons            |
+| smart_phone        |
+| student            |
+| tasks              |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from persons;
++----------+------------+----------+--------------------+-------+-------+
+| PersonID | FirstName  | LastName | Address            | City  | State |
++----------+------------+----------+--------------------+-------+-------+
+|       10 | Anand      | Singh    | JP nagar 6th phase | blore | KA    |
+|       15 | Shiva      | anand    | JP nagar 6th phase | blore | KA    |
+|       31 | Sharanappa | Gowda    | JP nagar 6th phase | blore | KA    |
++----------+------------+----------+--------------------+-------+-------+
+3 rows in set (0.01 sec)
+
+mysql> update persons
+    -> set city = 'delhi' where PersonID = 31;
+Query OK, 1 row affected (0.18 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from persons;
++----------+------------+----------+--------------------+-------+-------+
+| PersonID | FirstName  | LastName | Address            | City  | State |
++----------+------------+----------+--------------------+-------+-------+
+|       10 | Anand      | Singh    | JP nagar 6th phase | blore | KA    |
+|       15 | Shiva      | anand    | JP nagar 6th phase | blore | KA    |
+|       31 | Sharanappa | Gowda    | JP nagar 6th phase | delhi | KA    |
++----------+------------+----------+--------------------+-------+-------+
+3 rows in set (0.00 sec)
+
+mysql> delete form person
+    -> where PersonID = 10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MySQL server version for the right syntax to use near 'perso
+n
+where PersonID = 10' at line 1
+mysql> delete from person
+    -> ^C
+mysql> delete from persons
+    -> where PersonID = 10;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from persons;
++----------+------------+----------+--------------------+-------+-------+
+| PersonID | FirstName  | LastName | Address            | City  | State |
++----------+------------+----------+--------------------+-------+-------+
+|       15 | Shiva      | anand    | JP nagar 6th phase | blore | KA    |
+|       31 | Sharanappa | Gowda    | JP nagar 6th phase | delhi | KA    |
++----------+------------+----------+--------------------+-------+-------+
+2 rows in set (0.07 sec)
